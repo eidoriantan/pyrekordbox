@@ -1109,7 +1109,7 @@ class Rekordbox6Database:
         self.registry.on_move(moved)
 
     def _create_playlist(
-        self, name, seq, image_path, parent, smart_list=None, attribute=None
+        self, name, seq, image_path, parent, smart_list=None, attribute=None, check_seq=False
     ):
         """Creates a new playlist object."""
         table = tables.DjmdPlaylist
@@ -1153,7 +1153,7 @@ class Rekordbox6Database:
             insert_at_end = False
             if seq < 1:
                 raise ValueError("Sequence number must be greater than 0")
-            elif seq > n + 1:
+            elif check_seq and seq > n + 1:
                 raise ValueError(f"Sequence number too high, parent contains {n} items")
 
         logger.debug("ID:          %s", id_)
